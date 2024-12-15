@@ -1,11 +1,17 @@
-import { useState } from "react";
-import "./App.css";
-import WorkOut from "./workout";
+import AddworkOut from "./addworkout";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Login from "./login";
 
 function App() {
   return (
     <>
-      <WorkOut />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/Login" element={<Login />} />
+          <Route path="/addworkout" element={<AddworkOut />} />
+          <Route path="*" element={<Navigate to="/login" />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
