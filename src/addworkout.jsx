@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import logo from "./img/activesg-logo.png";
 import { GiWeightLiftingUp } from "react-icons/gi";
+import { FaChartSimple } from "react-icons/fa6";
 import "./App.css";
 import TodayworkOut from "./todayworkout";
+import { Link } from "react-router-dom";
 
 function Addworkout() {
   const [workout, setWorkout] = useState({
@@ -34,9 +36,10 @@ function Addworkout() {
     <>
       <nav className="navbar">
         <img src={logo} alt="logo" className="logo" />
-        <div className="icon-div">
-          <GiWeightLiftingUp className="weight-lifting" />
-        </div>
+        <Link to="/Dashboard">
+          <FaChartSimple className="chart-icon" />
+        </Link>
+        <GiWeightLiftingUp className="weight-lifting" />
       </nav>
       <div className="workout-layout">
         <div className="add-workout-section">
