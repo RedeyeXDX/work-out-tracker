@@ -6,6 +6,7 @@ import { FaChartSimple } from "react-icons/fa6";
 import "./App.css";
 import TodayworkOut from "./todayworkout";
 import { Link } from "react-router-dom";
+import { IoMdExit } from "react-icons/io";
 
 function Addworkout() {
   const [workout, setWorkout] = useState({
@@ -39,7 +40,12 @@ function Addworkout() {
         <Link to="/Dashboard">
           <FaChartSimple className="chart-icon" />
         </Link>
-        <GiWeightLiftingUp className="weight-lifting" />
+        <Link to="/addworkout">
+          <GiWeightLiftingUp className="weight-lifting" />
+        </Link>
+        <Link to="/Login">
+          <IoMdExit className="exit-button" />
+        </Link>
       </nav>
       <div className="workout-layout">
         <div className="add-workout-section">

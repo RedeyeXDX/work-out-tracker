@@ -3,9 +3,13 @@ import axios from "axios";
 import "./App.css";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FaPen } from "react-icons/fa";
+import UpdateWorkout from "./updateworkout";
+import "./modal.css";
 
 function TodayworkOut({ refresh }) {
   const [workOuts, setWorkOuts] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedWorkout, setSelectedWorkout] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,6 +35,16 @@ function TodayworkOut({ refresh }) {
       .catch((err) => console.error("Error deleting task:", err));
   };
 
+  const openModal = (workOut) => {
+    setSelectedWorkout(workOut);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedWorkout(null);
+    setModalOpen(false);
+  };
+
   return (
     <>
       <h2 className="today-exercises">Today Exercises</h2>
@@ -40,7 +54,7 @@ function TodayworkOut({ refresh }) {
             {workOut.name}
             <p>Duration: {workOut.duration} minutes</p>
             <p>Calories Burned: {workOut.caloriesBurned}</p>
-            <FaPen />
+            <FaPen onClick={() => openModal(workOut)} className="edit-button" />
             <RiDeleteBin6Line
               onClick={() => handleDelete(workOut._id)}
               className="delete-button"
@@ -49,6 +63,19 @@ function TodayworkOut({ refresh }) {
         ))
       ) : (
         <h1>No exercises today</h1>
+      )}
+      {modalOpen && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2 className="update-title">Update Workout</h2>
+            {selectedWorkout && (
+              <UpdateWorkout
+                workoutId={selectedWorkout._id}
+                onClose={closeModal}
+              />
+            )}
+          </div>
+        </div>
       )}
     </>
   );

@@ -7,6 +7,8 @@ import { FaChartSimple } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import logo from "./img/activesg-logo.png";
 import Allworkout from "./allworkout";
+import DurationChart from "./durationchart";
+import { IoMdExit } from "react-icons/io";
 
 const Dashboard = () => {
   const [workouts, setWorkouts] = useState([]);
@@ -37,11 +39,17 @@ const Dashboard = () => {
         <Link to="/addworkout">
           <GiWeightLiftingUp className="weight-lifting" />
         </Link>
+        <Link to="/Login">
+          <IoMdExit className="exit-button" />
+        </Link>
       </nav>
       <div className="workout-layout">
         <div className="today-workout-section">
           {workouts.length > 0 ? (
-            <CaloriesChart data={workouts} />
+            <>
+              <CaloriesChart data={workouts} />
+              <DurationChart data={workouts} />
+            </>
           ) : (
             <p>No workout data available.</p>
           )}

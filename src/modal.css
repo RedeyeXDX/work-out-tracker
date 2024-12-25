@@ -59,3 +59,7 @@ input {
 .alert {
   color: red;
 }
+
+.edit-button {
+  cursor: pointer;
+}

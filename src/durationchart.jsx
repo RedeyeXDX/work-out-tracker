@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Line } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, Colors } from "chart.js/auto";
-import "./App.css";
 
-const CaloriesChart = ({ data }) => {
-  const [chartData, setChartData] = useState({
+const DurationChart = ({ data }) => {
+  const [barChart, setBarchart] = useState({
     labels: [],
     datasets: [{}],
   });
@@ -17,21 +16,21 @@ const CaloriesChart = ({ data }) => {
           day: "numeric",
           year: "numeric",
         });
-        total[date] = (total[date] || 0) + workout.caloriesBurned;
+        total[date] = (total[date] || 0) + workout.duration;
         return total;
       }, {});
 
       const labels = Object.keys(groupedData);
-      const calories = Object.values(groupedData);
+      const duration = Object.values(groupedData);
 
-      setChartData({
+      setBarchart({
         labels,
         datasets: [
           {
-            label: "Calories Burned",
-            data: calories,
-            borderColor: "rgba(221, 33, 33, 0.8)",
-            backgroundColor: "rgba(221, 33, 33, 0.8)",
+            label: "Duration (minutes)",
+            data: duration,
+            borderColor: "rgba(1, 26, 196, 0.8)",
+            backgroundColor: "rgba(1, 26, 196, 0.8)",
           },
         ],
       });
@@ -39,10 +38,10 @@ const CaloriesChart = ({ data }) => {
   }, [data]);
 
   return (
-    <div className="line-chart">
-      <h2>Calories Burned Over Time</h2>
-      {chartData.labels.length > 0 ? (
-        <Line data={chartData} />
+    <div className="bar-chart">
+      <h2>Duration of workout over Time</h2>
+      {barChart.labels.length > 0 ? (
+        <Bar data={barChart} />
       ) : (
         <p>Loading chart...</p>
       )}
@@ -50,4 +49,4 @@ const CaloriesChart = ({ data }) => {
   );
 };
 
-export default CaloriesChart;
+export default DurationChart;

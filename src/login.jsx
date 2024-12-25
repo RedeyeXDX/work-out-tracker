@@ -5,11 +5,13 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { MdEmail } from "react-icons/md";
 import { TbLockPassword } from "react-icons/tb";
 import logo from "./img/activesg-logo.png";
+import Signup from "./signup";
 
 const Login = () => {
   const [user, setUser] = useState({});
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -26,6 +28,11 @@ const Login = () => {
       setError("Login Failed");
     }
   };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <>
       <div>
@@ -67,12 +74,22 @@ const Login = () => {
           <div className="submit" onClick={handleSubmit}>
             Login
           </div>
-          <div className="submit">Sign Up</div>
+          <div className="submit" onClick={() => setModalOpen(true)}>
+            Sign Up
+          </div>
         </div>
         <div>
           <p className="error-message">{error}</p>
         </div>
       </div>
+      {modalOpen && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2 className="Sign-up">Sign Up</h2>
+            <Signup onClose={closeModal} />
+          </div>
+        </div>
+      )}
     </>
   );
 };
