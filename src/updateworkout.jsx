@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./modal.css";
 
-const UpdateWorkout = ({ workoutId, onClose }) => {
+const UpdateWorkout = ({ workoutId, onClose, onUpdate }) => {
   const [name, setName] = useState("");
   const [duration, setDuration] = useState("");
   const [caloriesBurned, setCaloriesBurned] = useState("");
@@ -30,6 +30,7 @@ const UpdateWorkout = ({ workoutId, onClose }) => {
   const handleClose = () => {
     setAlert("");
     onClose();
+    onUpdate();
   };
 
   return (

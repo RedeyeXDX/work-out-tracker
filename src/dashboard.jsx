@@ -55,7 +55,7 @@ const Dashboard = () => {
           )}
         </div>
         <div className="exercises">
-          <Allworkout />
+          <Allworkout workouts={workouts} onUpdate={() => triggerRefresh()} />
         </div>
       </div>
     </>

@@ -6,10 +6,11 @@ import { FaPen } from "react-icons/fa";
 import UpdateWorkout from "./updateworkout";
 import "./modal.css";
 
-function Allworkout() {
+function Allworkout({ onUpdate }) {
   const [workOuts, setWorkOuts] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedWorkout, setSelectedWorkout] = useState(null);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,7 +24,7 @@ function Allworkout() {
       }
     };
     fetchData();
-  }, []);
+  }, [refresh]);
 
   const handleDelete = (id) => {
     axios
@@ -45,6 +46,8 @@ function Allworkout() {
     setSelectedWorkout(null);
     setModalOpen(false);
   };
+
+  const triggerRefresh = () => setRefresh((prev) => !prev);
 
   return (
     <>
@@ -73,6 +76,7 @@ function Allworkout() {
               <UpdateWorkout
                 workoutId={selectedWorkout._id}
                 onClose={closeModal}
+                onUpdate={triggerRefresh}
               />
             )}
           </div>
