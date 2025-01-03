@@ -9,15 +9,18 @@ import logo from "./img/activesg-logo.png";
 import Allworkout from "./allworkout";
 import DurationChart from "./durationchart";
 import { IoMdExit } from "react-icons/io";
+import { useUser } from "./userContext";
 
 const Dashboard = () => {
   const [workouts, setWorkouts] = useState([]);
+  const { user } = useUser();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/workout/All");
-        console.log(response);
+        const response = await axios.post("http://localhost:3000/workout/All", {
+          user: user.email,
+        });
         setWorkouts(response.data);
       } catch (error) {
         console.error("Error fetching workout data:", error.message);
@@ -25,7 +28,7 @@ const Dashboard = () => {
     };
 
     fetchData();
-  }, []);
+  }, [user]);
 
   return (
     <>

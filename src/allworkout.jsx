@@ -5,8 +5,10 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { FaPen } from "react-icons/fa";
 import UpdateWorkout from "./updateworkout";
 import "./modal.css";
+import { useUser } from "./userContext";
 
 function Allworkout({ onUpdate }) {
+  const { user } = useUser();
   const [workOuts, setWorkOuts] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedWorkout, setSelectedWorkout] = useState(null);
@@ -15,16 +17,17 @@ function Allworkout({ onUpdate }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/workout/All");
+        const response = await axios.post("http://localhost:3000/workout/All", {
+          user: user.email,
+        });
         setWorkOuts(response.data || []);
-        console.log(response);
       } catch (error) {
         console.error("Error fetching workouts:", error.message);
         console.error("Response:", error.response?.data);
       }
     };
     fetchData();
-  }, [refresh]);
+  }, [refresh, user]);
 
   const handleDelete = (id) => {
     axios

@@ -7,8 +7,10 @@ import "./App.css";
 import TodayworkOut from "./todayworkout";
 import { Link } from "react-router-dom";
 import { IoMdExit } from "react-icons/io";
+import { useUser } from "./userContext";
 
 function Addworkout() {
+  const { user } = useUser();
   const [workout, setWorkout] = useState({
     name: "",
     duration: "",
@@ -22,10 +24,10 @@ function Addworkout() {
     setMessage("");
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/workout",
-        workout
-      );
+      const response = await axios.post("http://localhost:3000/workout", {
+        ...workout,
+        user: user.email,
+      });
       setMessage(response.data.message);
       setRefresh((prev) => !prev);
     } catch (error) {

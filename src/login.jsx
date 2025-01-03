@@ -6,12 +6,14 @@ import { MdEmail } from "react-icons/md";
 import { TbLockPassword } from "react-icons/tb";
 import logo from "./img/activesg-logo.png";
 import Signup from "./signup";
+import { useUser } from "./userContext";
 
 const Login = () => {
   const [user, setUser] = useState({});
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
+  const { setUser: setAuthUser } = useUser();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -19,6 +21,9 @@ const Login = () => {
     try {
       const response = await axios.post("http://localhost:3000/login", user);
       if (response.status === 200) {
+        const { user: userData } = response.data;
+        setAuthUser(userData);
+        console.log("Updated Context User:", userData);
         navigate("/addworkout");
       } else {
         setError("Login Failed");
